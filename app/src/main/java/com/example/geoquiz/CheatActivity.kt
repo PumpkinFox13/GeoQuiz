@@ -47,4 +47,17 @@ class CheatActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("cheat_attempts", cheatAttempts)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        cheatAttempts = savedInstanceState.getInt("cheat_attempts")
+        if (cheatAttempts >= 3) {
+            showAnswerButton.isEnabled = false
+        }
+    }
 }

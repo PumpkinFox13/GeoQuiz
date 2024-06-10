@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 
 private const val TAG = "MainActivity"
+private const val KEY_CHEAT_ATTEMPTS = "cheat_attempts"
 
 class MainActivity : AppCompatActivity() {
 
@@ -119,6 +120,9 @@ class MainActivity : AppCompatActivity() {
 
         if (quizViewModel.isLastQuestion()) {
             Toast.makeText(this, getString(R.string.correct_answers, quizViewModel.getCorrectAnswersCount()), Toast.LENGTH_SHORT).show()
+            nextButton.visibility = View.GONE
+        } else {
+            nextButton.visibility = View.VISIBLE
         }
     }
 }
