@@ -50,7 +50,9 @@
             android:id="@+id/next_button"
             android:layout_width="103dp"
             android:layout_height="wrap_content"
-            android:text="Next" />
+            android:text="Next"
+            android:drawableEnd="@drawable/arrow_right"
+            android:drawablePadding="4dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
