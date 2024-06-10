@@ -1,6 +1,7 @@
 package com.example.geoquiz
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.Toast
 import android.widget.TextView
 
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var trueButton: Button
@@ -33,6 +35,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        Log.d(TAG, "onCreate(Bundle?) called")
+
+
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -58,6 +63,31 @@ class MainActivity : AppCompatActivity() {
             updateQuestion()
         }
         updateQuestion()
+    }
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG,
+            "onStart() called")
+    }
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG,
+            "onResume() called")
+    }
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG,
+            "onPause() called")
+    }
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG,
+            "onStop() called")
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG,
+            "onDestroy() called")
     }
     private fun updateQuestion() {
         val questionTextResId = questionBank[currentIndex].textResId
