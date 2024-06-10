@@ -17,6 +17,12 @@
         android:layout_height="wrap_content"
         android:text="Показать ответ" />
 
+    <Button
+        android:id="@+id/return_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Вернуться к вопросам" />
+
     <TextView
         android:id="@+id/api_level_text_view"
         android:layout_width="wrap_content"
