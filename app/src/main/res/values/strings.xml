@@ -15,4 +15,8 @@
     <string name="show_answer_button">Show Answer</string>
     <string name="cheat_button">Cheat!</string>
     <string name="judgment_toast">Cheating is wrong.</string>
+    <string name="api_level">API level: %1$d</string>
+    <string name="correct_answer">Правильный ответ: %1$s</string>
+    <string name="cheat_attempts_limit_reached">Вы исчерпали лимит подсказок</string>
+
 </resources>

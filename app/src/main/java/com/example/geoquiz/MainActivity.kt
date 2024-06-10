@@ -1,6 +1,7 @@
 package com.example.geoquiz
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var falseButton: Button
     private lateinit var nextButton: Button
     private lateinit var questionTextView: TextView
+    private lateinit var cheatButton : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,11 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        cheatButton = findViewById(R.id.cheat_button)
+        cheatButton.setOnClickListener {
+            val intent = Intent(this, CheatActivity::class.java)
+            startActivity(intent)
         }
 
         trueButton = findViewById(R.id.true_button)
@@ -57,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             updateQuestion()
         }
         updateQuestion()
+
     }
 
     override fun onStart() {
@@ -96,6 +104,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     @SuppressLint("StringFormatMatches")
     private fun checkAnswer(userAnswer: Boolean) {
         val isCorrect = quizViewModel.checkAnswer(userAnswer)
@@ -113,6 +122,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-//
-//
