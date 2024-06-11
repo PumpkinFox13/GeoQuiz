@@ -1,4 +1,4 @@
-package com.bignerdranch.android.geomain
+package com.example.geoquiz
 
 import android.app.Activity
 import android.content.Context

@@ -1,4 +1,4 @@
-package com.bignerdranch.android.geoquiz
+package com.example.geoquiz
 
 import android.app.Activity
 import android.content.Intent
@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 
+
 private const val TAG = "MainActivity1"
 private const val KEY_INDEX = "index"
 private const val REQUEST_CODE_CHEAT = 0
@@ -20,8 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cheatButton: Button
     private lateinit var trueButton: Button
     private lateinit var falseButton: Button
-    private lateinit var nextButton: ImageButton
-    private lateinit var prevButton: ImageButton
+    private lateinit var nextButton: Button
     private lateinit var questionTextView: TextView
 
     private val quizViewModel: QuizViewModel by lazy {
@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         trueButton = findViewById(R.id.true_button)
         falseButton = findViewById(R.id.false_button)
         nextButton = findViewById(R.id.next_button)
-        prevButton = findViewById(R.id.prev_button)
         questionTextView = findViewById(R.id.question_text_view)
 
         cheatButton.setOnClickListener {
@@ -59,11 +58,6 @@ class MainActivity : AppCompatActivity() {
         }
         nextButton.setOnClickListener {
             quizViewModel.moveToNext()
-            updateQuestion()
-            checkAskCompleted()
-        }
-        prevButton.setOnClickListener {
-            quizViewModel.moveToPrev()
             updateQuestion()
             checkAskCompleted()
         }
@@ -124,7 +118,11 @@ class MainActivity : AppCompatActivity() {
     private fun updateQuestion() {
         val questionTextResId = quizViewModel.currentQuestionText
         questionTextView.setText(questionTextResId)
-    }
+        val isLastQuestion = quizViewModel.currentIndex == quizViewModel.questionSize - 1
+
+        // Если это последний вопрос, скрываем кнопку "Next"
+        nextButton.visibility = if (isLastQuestion) View.GONE else View.VISIBLE
+        }
 
     private fun checkAnswer(userAnswer: Boolean) {
         if (checkAskCompleted()) return
@@ -152,6 +150,33 @@ class MainActivity : AppCompatActivity() {
         trueButton.isEnabled = false
         falseButton.isEnabled = false
         quizViewModel.currentResponseUp()
+        if (checkAskCompleted()) return
+
+        if (userAnswer == correctAnswer) {
+            messageResId = R.string.correct_toast
+            quizViewModel.currentCorrectAnswerUp()
+        } else {
+            messageResId = R.string.incorrect_toast
+        }
+        if (quizViewModel.isCheater) messageResId = R.string.judgment_toast
+
+        Toast.makeText(
+            this,
+            messageResId,
+            Toast.LENGTH_SHORT
+        ).show()
+
+        quizViewModel.currentQuestionUserResponse(userAnswer) // Запоминание ответа пользователя
+
+        trueButton.isEnabled = false
+        falseButton.isEnabled = false
+        quizViewModel.currentResponseUp()
+
+        // Проверяем, является ли текущий вопрос последним в игре
+        if (quizViewModel.currentIndex == quizViewModel.questionSize - 1) {
+            // Если это последний вопрос, показываем результаты
+            checkQuizCompleted()
+        }
 
     }
 
