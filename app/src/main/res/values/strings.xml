@@ -10,8 +10,8 @@
 
     <string name="true_button">Правда</string>
     <string name="false_button">Ложь</string>
-    <string name="correct_toast">Correct!</string>
-    <string name="incorrect_toast">Incorrect!</string>
+    <string name="correct_toast">Правильно</string>
+    <string name="incorrect_toast">Неверно</string>
     <string name="next_button">Дальше</string>
 
     <string name="warning_text">Вы действительно хотите это сделать?</string>
