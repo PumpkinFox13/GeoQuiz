@@ -1,45 +1,61 @@
-package com.example.geoquiz
+package com.bignerdranch.android.geomain
 
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.ViewModel
 
-private const val TAG = "QuizViewModel"
+private const val TAG = "QuizViewModel1"
 
 class QuizViewModel : ViewModel() {
-    var currentIndex = 0
-    private var correctAnswers = 0
-
-    private val questionBank = listOf(
-        Question(R.string.question_australia, true),
-        Question(R.string.question_oceans, true),
-        Question(R.string.question_mideast, false),
-        Question(R.string.question_africa, false),
-        Question(R.string.question_americas, true),
-        Question(R.string.question_asia, true)
+    private var questionBank = listOf(
+        Question(R.string.question_australia, true, null, false),
+        Question(R.string.question_oceans, true, null, false),
+        Question(R.string.question_mideast, false, null, false),
+        Question(R.string.question_africa, false, null, false),
+        Question(R.string.question_americas, true, null, false),
+        Question(R.string.question_asia, true, null, false)
     )
+
+    val isCheater get() = questionBank[currentIndex].cheat
+    var currentIndex = 0
+    var currentResponse = 0
+    var currentCorrectAnswer = 0
 
     val currentQuestionAnswer: Boolean
         get() = questionBank[currentIndex].answer
+
     val currentQuestionText: Int
         get() = questionBank[currentIndex].textResId
+
+    val currentQuestionUserResponse: Boolean?
+        get() = questionBank[currentIndex].userResponse
+
+    val questionSize: Int
+        get() = questionBank.size
 
     fun moveToNext() {
         currentIndex = (currentIndex + 1) % questionBank.size
     }
 
-    fun isLastQuestion(): Boolean {
-        return currentIndex == questionBank.size - 1
+    fun moveToPrev() {
+        if (currentIndex > 0) currentIndex--
+        else currentIndex = questionBank.size - 1
     }
 
-    fun checkAnswer(userAnswer: Boolean): Boolean {
-        val correctAnswer = questionBank[currentIndex].answer
-        if (userAnswer == correctAnswer) {
-            correctAnswers++
-        }
-        return userAnswer == correctAnswer
+    fun currentQuestionUserResponse(userAnswer: Boolean) {
+        questionBank[currentIndex].userResponse = userAnswer
     }
 
-    fun getCorrectAnswersCount(): Int {
-        return correctAnswers
+    fun currentResponseUp() {
+        currentResponse++
     }
+
+    fun currentCorrectAnswerUp() {
+        currentCorrectAnswer++
+    }
+
+    fun CheckCheat(data: Boolean) {
+        questionBank[currentIndex].cheat = data
+    }
+
 }
